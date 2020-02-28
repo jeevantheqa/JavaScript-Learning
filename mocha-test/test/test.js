@@ -43,10 +43,48 @@ describe('Task API Routes', function() {
             request.get('/tasks/' + 1)
                 .expect(200)
                 .end(function(err, res) {
-                    expect(res.body.id).to.eql(2);
+                    expect(res.body.id).to.eql(1);
                     done(err);
                 });
 
 });
+
+                it('returns status 404 when id is not found', function(done) {
+                    var task = {
+                        id: 'fakeId'
+                    }
+                    request.get('/tasks/' + task.id)
+                        .expect(404)
+                        .end(function(err, res) {
+                            done(err);
+                        });
+                });
+
+                describe('PUT /tasks/:id', function() {
+                    it('updates a task', function(done) {
+                        
+                        request.put('/tasks/' + 1)
+                            .send({
+                                title: 'travel',
+                                done: false
+                            })
+                            .expect(200)
+                            .end(function(err, res) {
+                                done(err);
+                            });
+                    });
+                });
+
+                   // Testing how to delete a task expecting status 201 of success
+    describe('DELETE /tasks/:id', function() {
+        it('removes a task', function(done) {
+            
+            request.put('/tasks/' + 1)
+                .expect(200)
+                .end(function(err, res) {
+                    done(err);
+                });
+        });
+    });
 });
 });
