@@ -1,5 +1,6 @@
 var supertest = require('supertest');
 var expect = require('chai').expect;
+var puppeteer = require('puppeteer');
 
 
 var request = supertest("http://localhost:9000");
@@ -87,4 +88,26 @@ describe('Task API Routes', function() {
         });
     });
 });
+
+    describe('Puppeteer test',function(){
+        it.only('click action',async function(done){
+            const browser = await puppeteer.launch({
+                headless:false,
+                slowMo:80
+                
+            });
+            const page = browser.newPage();
+            (await page).goto('https://www.google.com/');
+            (await page).type("[name='q']",'Data Structure');
+            //(await  page).$("[name='q']").type("Data Structures");
+            (await page).click("[name='btnk']");
+            //(await  page).$("[name='btnk']").click();
+            const finalText = (await  page).$eval("[title='Search']",el => el.textContent);
+            expect(finalText).to('Data Structure');
+            browser.close();
+            done(err);
+        });
+
+
+    });
 });
