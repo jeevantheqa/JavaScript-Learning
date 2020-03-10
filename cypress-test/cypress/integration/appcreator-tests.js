@@ -17,6 +17,7 @@ describe('App Creator Tests', function() {
         cy.get("[data-testid='icon_user']").should('have.class','sc-bxivhb');
     })
 
+// adding comments
     it('Edit a Project',function(){
 
         cy.contains('Senckenberg Naturmuseum').click();
